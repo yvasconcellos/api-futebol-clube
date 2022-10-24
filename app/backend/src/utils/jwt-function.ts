@@ -15,10 +15,7 @@ const validateToken = async (req: Request, res: Response, next: NextFunction) =>
   }
 
   try {
-    console.log('ValidateToken', token);
-    console.log('Secret', secret);
     const decoded = jwt.verify(token, secret);
-    console.log(decoded);
     req.body.token = decoded;
     next();
   } catch (e) {

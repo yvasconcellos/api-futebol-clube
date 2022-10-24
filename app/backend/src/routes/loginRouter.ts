@@ -7,7 +7,7 @@ const loginRouter = Router();
 const loginController = new LoginController();
 const loginMiddleware = new LoginMiddleware();
 
-loginRouter.get('/login', validateToken, async (req: Request, res: Response) => {
+loginRouter.get('/login/validate', validateToken, async (req: Request, res: Response) => {
   const result = await loginController.findUser(req.body.token);
   res.status(200).json({ role: result });
 });
