@@ -21,21 +21,21 @@ describe('Teste rota Login', () => {
       expect(httpResponse.body).to.haveOwnProperty('token')
     })
 
-    it('Se não passar o email, retorna Status 404 e mensagem "All fields must be filled"', async () => {
+    it('Se não passar o email, retorna Status 400 e mensagem "All fields must be filled"', async () => {
       const httpResponse = await chai.request(app).post('/login').send({
         password: 'senha_qualquer'
         })
         
-        expect(httpResponse.status).to.be.equal(404)
+        expect(httpResponse.status).to.be.equal(400)
         expect(httpResponse.body).to.deep.equal({ message: "All fields must be filled" })
     })
 
-    it('Se não passar o password, retorna Status 404 e mensagem "All fields must be filled"', async () => {
+    it('Se não passar o password, retorna Status 400 e mensagem "All fields must be filled"', async () => {
       const httpResponse = await chai.request(app).post('/login').send({
         email: 'email_qualquer'
         })
         
-        expect(httpResponse.status).to.be.equal(404)
+        expect(httpResponse.status).to.be.equal(400)
         expect(httpResponse.body).to.deep.equal({ message: "All fields must be filled" })
     })
 
