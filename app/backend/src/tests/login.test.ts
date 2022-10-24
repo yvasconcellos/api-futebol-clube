@@ -7,6 +7,7 @@ import chaiHttp = require('chai-http');
 chai.use(chaiHttp);
 
 const { expect } = chai;
+const tokenValido = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsInBhc3N3b3JkIjoic2VjcmV0X2FkbWluIiwiaWF0IjoxNjY2NjI2ODM5fQ.Lm1hEYvaZ00GsWu-oy3n4Q38gFgI74RBQ2ufyK1EsKQ"
 
 
 describe('Teste rota Login', () => {
@@ -58,7 +59,14 @@ describe('Teste rota Login', () => {
       expect(httpResponse.status).to.equal(401)
       expect(httpResponse.body).to.deep.equal({ message: "Incorrect email or password" })
     })
-
   })
+  
+  describe('Método GET' ,() => {
+    it('Testa se ao passar token válido, retorna o Role com status 200' , async() => {
+      const httpResponse = await chai.request(app).get('/login/validate').set('Authorization', tokenValido)
+        expect(httpResponse.status).to.equal(200)
+        expect(httpResponse.body).to.deep.equal({ role: "admin" })
+      })
 
-});
+    })
+  });

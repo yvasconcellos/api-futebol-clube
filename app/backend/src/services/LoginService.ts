@@ -1,4 +1,3 @@
-import * as bcrypt from 'bcryptjs';
 import UserModel from '../database/models/UserModel';
 import { iLogin, iLoginService } from '../utils/interfaces';
 
