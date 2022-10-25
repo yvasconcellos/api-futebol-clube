@@ -10,13 +10,15 @@ chai.use(chaiHttp);
 
 const { expect } = chai;
 const tokenValido = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsInBhc3N3b3JkIjoic2VjcmV0X2FkbWluIiwiaWF0IjoxNjY2NjI2ODM5fQ.Lm1hEYvaZ00GsWu-oy3n4Q38gFgI74RBQ2ufyK1EsKQ"
-const userLogin = {
-  id: 1,
-  username: 'Admin',
-  role: 'admin',
-  email: 'admin@admin.com',
-  password: 'secret_admin'
+const userLogin = [
+  {
+    "id": 1,
+    "username": "Admin",
+    "role": "admin",
+    "email": "admin@admin.com",
+    "password": "$2a$08$xi.Hxk1czAO0nZR..B393u10aED0RQ1N3PAEXQ7HxtLjKPEZBu.PW"
   }
+]
 
 describe('Teste rota Login', () => {
   afterEach(() => { sinon.restore() });
@@ -24,6 +26,7 @@ describe('Teste rota Login', () => {
   describe('Método Post', () => {
     afterEach(() => { sinon.restore() });
     it('Se correto, retorna Status 200 e Token', async() => {
+      sinon.stub(UserModel, 'findAll').resolves(userLogin as any)
 
       const httpResponse = await chai.request(app).post('/login').send({
       email: 'admin@admin.com',
@@ -65,7 +68,8 @@ describe('Teste rota Login', () => {
     })
 
     it('Se password incorreto, retorna Status 401 e mensagem "Incorrect email or password"', async() => {
-
+      sinon.stub(UserModel, 'findAll').resolves(userLogin as any)
+      
       const httpResponse = await chai.request(app).post('/login').send({
       email: 'user@user.com',
       password: 'secret_user_errado'
@@ -78,7 +82,8 @@ describe('Teste rota Login', () => {
   
   describe('Método GET' ,() => {
     it('Testa se ao passar token válido, retorna o Role com status 200' , async() => {
-
+      sinon.stub(UserModel, 'findAll').resolves(userLogin as any)
+      
       const httpResponse = await chai.request(app).get('/login/validate').set('Authorization', tokenValido)
         expect(httpResponse.status).to.equal(200)
         expect(httpResponse.body).to.deep.equal({ role: "admin" })

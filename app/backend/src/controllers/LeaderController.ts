@@ -15,8 +15,8 @@ export default class LeaderController {
       if (time1.goalsBalance > time2.goalsBalance) return -1;
       if (time1.goalsFavor < time2.goalsFavor) return 1;
       if (time1.goalsFavor > time2.goalsFavor) return -1;
-      if (time1.goalsOwn < time2.goalsOwn) return 1;
-      if (time1.goalsOwn > time2.goalsOwn) return -1;
+      if (time1.goalsOwn < time2.goalsOwn) return -1;
+      if (time1.goalsOwn > time2.goalsOwn) return 1;
       return 0;
     });
   };

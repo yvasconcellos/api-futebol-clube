@@ -63,3 +63,7 @@ export interface leader {
   goalsBalance: number,
   efficiency: number
 }
+
+export interface iLeaderService {
+  getDataFromTeams(teams: iTeam[]): Promise<leader[]>
+}

@@ -5,9 +5,8 @@ import { app } from '../app'
 import chaiHttp = require('chai-http');
 import {matches, matchesInProgress, matchesFinished, matchCreated} from './utils/allmatches';
 import MatchModel from '../database/models/MatchModel';
-import { Match } from '@testing-library/react';
-import { iMatch } from '../utils/interfaces';
 import TeamModel from '../database/models/TeamModel';
+import { teams } from './utils/allTeams';
 
 chai.use(chaiHttp);
 
@@ -46,6 +45,7 @@ describe('Teste da Rota /Matches' ,() => {
   describe('Método POST', () => {
     afterEach(() => { sinon.restore() });
     it('Ao criar um Match com sucesso, retorna status 201 e retorna os dados da partida', async () => {
+      sinon.stub(TeamModel, 'findByPk').onFirstCall().resolves(teams[15] as any).onSecondCall().resolves(teams[7] as any)
       sinon.stub(MatchModel, 'create').resolves(matchCreated as any)
       
       const httpResponse = await chai.request(app).post('/matches').set('Authorization', tokenValido).send(

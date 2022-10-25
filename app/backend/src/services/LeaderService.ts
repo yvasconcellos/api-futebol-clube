@@ -1,9 +1,9 @@
-import { iMatch, iTeam, leader } from '../utils/interfaces';
+import { iLeaderService, iMatch, iTeam, leader } from '../utils/interfaces';
 import MatchModel from '../database/models/MatchModel';
 import TeamService from './TeamService';
 import LeaderClass from '../utils/leaderClass';
 
-export default class LeaderService {
+export default class LeaderService implements iLeaderService {
   private _matchModel = MatchModel;
   private _teamService = new TeamService();
 
