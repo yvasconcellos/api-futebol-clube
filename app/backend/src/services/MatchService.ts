@@ -2,10 +2,12 @@ import TeamModel from '../database/models/TeamModel';
 import TeamService from './TeamService';
 import MatchModel from '../database/models/MatchModel';
 import { createMatch, iMatch, iMatchService } from '../utils/interfaces';
+import LeaderService from './LeaderService';
 
 export default class MatchService implements iMatchService {
-  private _matchModel = MatchModel;
+  protected _matchModel = MatchModel;
   private _teamService = new TeamService();
+  private _leaderService = new LeaderService();
 
   async getAllMatches(): Promise<iMatch[]> {
     const result = await this._matchModel.findAll({

@@ -2,15 +2,14 @@ import TeamModel from '../database/models/TeamModel';
 import { iTeam, iTeamService } from '../utils/interfaces';
 
 export default class TeamService implements iTeamService {
-  private _teamModel = TeamModel;
-
-  async getTeamById(teamId: string): Promise<iTeam> {
-    const team = await this._teamModel.findByPk(teamId);
+  getTeamById = async (teamId: string): Promise<iTeam> => {
+    const team = await TeamModel.findByPk(teamId);
     return team as iTeam;
-  }
+  };
 
-  async getAllTeams(): Promise<iTeam[]> {
-    const teams = await this._teamModel.findAll();
+  getAllTeams = async (): Promise<iTeam[]> => {
+    const teams = await TeamModel.findAll();
+
     return teams;
-  }
+  };
 }

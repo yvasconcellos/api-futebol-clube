@@ -3,8 +3,7 @@ import { iLogin, iLoginService } from '../utils/interfaces';
 
 export default class LoginService implements iLoginService {
   validateUser = async (user: iLogin): Promise<iLogin[]> => {
-    const userModel = UserModel;
-    const userLogin = await userModel.findAll({
+    const userLogin = await UserModel.findAll({
       where: {
         email: user.email,
       },
