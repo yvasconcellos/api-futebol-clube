@@ -22,18 +22,31 @@ matchRouter.post(
   middlewareMatches.validateFields,
   async (req: Request, res: Response) => {
     const result = await matchController.createMatch(req.body);
-    if (result) res.status(201).json(result);
+    if (result) {
+      return res.status(201).json(result);
+    }
     return res.status(404).json({ message: 'There is no team with such id!' });
   },
 );
 
 matchRouter.patch(
-  '/matches/:id/finished',
+  '/matches/:id/finish',
   validateToken,
   async (req: Request, res: Response) => {
     const { id } = req.params;
     await matchController.finalizeMatch(id);
     return res.status(200).json({ message: 'Finished' });
+  },
+);
+
+matchRouter.patch(
+  '/matches/:id',
+  validateToken,
+  async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const { homeTeamGoals, awayTeamGoals } = req.body;
+    await matchController.updateMatch(id, homeTeamGoals, awayTeamGoals);
+    return res.status(200).json({ message: 'Updated' });
   },
 );
 

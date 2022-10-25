@@ -67,4 +67,14 @@ export default class MatchService implements iMatchService {
       { where: { id } },
     );
   }
+
+  async updateMatch(id: string, homeGoals: string, awayGoals: string): Promise<void> {
+    await this._matchModel.update(
+      {
+        homeTeamGoals: homeGoals,
+        awayTeamGoals: awayGoals,
+      },
+      { where: { id } },
+    );
+  }
 }

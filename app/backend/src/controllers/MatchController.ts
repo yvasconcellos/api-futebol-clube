@@ -23,4 +23,8 @@ export default class matchController {
   finalizeMatch = async (id: string) => {
     await this._matchService.finalizeMatch(id);
   };
+
+  updateMatch = async (id: string, homeGoals: string, awayGoals: string) => {
+    await this._matchService.updateMatch(id, homeGoals, awayGoals);
+  };
 }

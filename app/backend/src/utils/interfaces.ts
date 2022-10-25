@@ -38,6 +38,8 @@ export interface iMatchService {
   getAllMatchesFiltered(filter: string): Promise<iMatch[]>
   createMatches(data: createMatch): Promise<createMatch | null>
   finalizeMatch(id: string): Promise<void>
+  updateMatch(id: string, homeGoals: string, awayGoals: string): Promise<void>
+
 }
 
 export interface createMatch {
