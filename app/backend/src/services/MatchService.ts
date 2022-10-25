@@ -1,9 +1,11 @@
 import TeamModel from '../database/models/TeamModel';
+import TeamService from './TeamService';
 import MatchModel from '../database/models/MatchModel';
-import { iMatch, iMatchService } from '../utils/interfaces';
+import { createMatch, iMatch, iMatchService } from '../utils/interfaces';
 
 export default class MatchService implements iMatchService {
   private _matchModel = MatchModel;
+  private _teamService = new TeamService();
 
   async getAllMatches(): Promise<iMatch[]> {
     const result = await this._matchModel.findAll({
@@ -36,5 +38,33 @@ export default class MatchService implements iMatchService {
       },
     });
     return result as unknown as iMatch[];
+  }
+
+  async createMatches({ homeTeam, homeTeamGoals, awayTeam, awayTeamGoals }: createMatch):
+  Promise<createMatch | null> {
+    const home = await this._teamService.getTeamById(homeTeam as unknown as string);
+    const away = await this._teamService.getTeamById(awayTeam as unknown as string);
+
+    if (home && away) {
+      const result = await this._matchModel.create({
+        homeTeam,
+        homeTeamGoals,
+        awayTeam,
+        awayTeamGoals,
+        inProgress: 1,
+      });
+
+      return result;
+    }
+    return null;
+  }
+
+  async finalizeMatch(id: string): Promise<void> {
+    await this._matchModel.update(
+      {
+        inProgress: 0,
+      },
+      { where: { id } },
+    );
   }
 }

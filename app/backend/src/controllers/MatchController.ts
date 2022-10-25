@@ -1,5 +1,5 @@
 import MatchService from '../services/MatchService';
-import { iMatchService } from '../utils/interfaces';
+import { createMatch, iMatchService } from '../utils/interfaces';
 
 export default class matchController {
   constructor(private _matchService: iMatchService = new MatchService()) {
@@ -13,5 +13,14 @@ export default class matchController {
   getAllMatchesFiltered = async (filter: string) => {
     const result = await this._matchService.getAllMatchesFiltered(filter);
     return result;
+  };
+
+  createMatch = async (data: createMatch) => {
+    const result = await this._matchService.createMatches(data);
+    return result;
+  };
+
+  finalizeMatch = async (id: string) => {
+    await this._matchService.finalizeMatch(id);
   };
 }
