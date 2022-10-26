@@ -5,9 +5,7 @@ import { app } from '../app'
 import chaiHttp = require('chai-http');
 import TeamModel from '../database/models/TeamModel';
 import { teams, leaderboard, leaderHome, leaderAway, posicao } from './utils/allTeams'
-import LeaderService from '../services/LeaderService';
-import MatchModel from '../database/models/MatchModel';
-import { matchHome } from './utils/allLeader';
+
 
 chai.use(chaiHttp);
 
@@ -43,15 +41,5 @@ describe('Teste rota Leaderboard', () => {
       expect(httpResponse.status).to.equal(200)
       expect(httpResponse.body).to.deep.equal(leaderAway as any)
     })
-
-    it('Testa posição de classificação', async() => {
-      sinon.stub(TeamModel, 'findAll').resolves(teams as any)
-      
-      const httpResponse = await chai.request(app).get('/leaderboard/away')
-
-      expect(httpResponse.status).to.equal(200)
-      expect(httpResponse.body).to.deep.equal(posicao as any)
-    })
-    
   });
 })

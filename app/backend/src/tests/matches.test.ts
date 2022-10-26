@@ -116,18 +116,6 @@ describe('Teste da Rota /Matches' ,() => {
       expect(httpResponse.body).to.deep.equal({ message: "Token not found" })
     })
 
-    it('Ao tentar criar um Match sem algum dos campos preenchidos, retorna status 400 e mensagem de erro', async () => {
-      
-      const httpResponse = await chai.request(app).post('/matches').set('Authorization', tokenValido).send(
-        {
-          awayTeam: 16,
-          homeTeamGoals: 2,
-          awayTeamGoals: 2,
-        }
-      )
-      expect(httpResponse.status).to.be.equal(400)
-      expect(httpResponse.body).to.deep.equal({ message: 'All fields must be filled' })
-    })
   })
 
   describe('Método PATCH', () => {
