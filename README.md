@@ -60,7 +60,8 @@ git@github.com:yvasconcellos/api-futebol-clube.git
   > <strong>POST /login</strong>
   
    • Se o login for feito com sucesso retorna um token para o usuário.
-   <b>O endpoint deve receber a seguinte estrutura:</b>
+   </br>
+   • O endpoint deve receber a seguinte estrutura:
    
 ```json
   {
@@ -72,6 +73,7 @@ git@github.com:yvasconcellos/api-futebol-clube.git
  > <strong>GET /login/validate</strong>
 
    • O Token recebido no método POST deve ser passado em Authorization no Headers.
+      </br>
    • Caso correto, retorna o Role do usúario.
 </details>
 <details>
@@ -102,9 +104,9 @@ git@github.com:yvasconcellos/api-futebol-clube.git
   
   > <strong>POST /matches</strong>
 
-   • Cadastrada partidas na base de dados.
-
-   <b>O endpoint deve receber a seguinte estrutura (Token deve ser passado no Header):</b>
+  • Cadastrada partidas na base de dados.
+     </br>
+  • O endpoint deve receber a seguinte estrutura (Token deve ser passado no Header):
    
 ```json
   {
@@ -121,8 +123,8 @@ git@github.com:yvasconcellos/api-futebol-clube.git
   > <strong>PATCH /matches/:id</strong>
   
   • Atualiza partidas em progresso na base de dados.
-
-   <b>O endpoint deve receber a seguinte estrutura (Token deve ser passado no Header):</b>
+     </br>
+  • O endpoint deve receber a seguinte estrutura (Token deve ser passado no Header):
    
 ```json
   {
